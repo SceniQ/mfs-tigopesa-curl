@@ -1,0 +1,15 @@
+
+ARGUMENTS DESCRIPTION:
+
+MFS_REFERENCE_ID - This represents the unique value that identifies the request
+TYPE - This represents the request type of the transaction
+MSISDN - This represents the payer MSISDN with country code
+PIN - This represents the username's or payer's pin
+EXTERNAL_REFERENCE_ID - Partner transaction ID that uniquely identifies the transaction
+URL - This represents the end-point service url which will invoked
+
+==============================================================================================================
+TRANSACTION DETAIL:
+Args order: java -jar mfs-tigopesa-curl.jar MFS_REFERENCE_ID TYPE MSISDN PIN URL
+
+Example: java -jar mfs-tigopesa-curl.jar MFSTEST20220531-001 MTPGGetSODetails 2556400755569 9789 ExtRef8881239 https://tigotest.free.beeceptor.com/detail
