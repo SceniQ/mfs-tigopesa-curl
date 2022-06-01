@@ -10,6 +10,6 @@ URL - This represents the end-point service url which will invoked
 
 ==============================================================================================================
 TRANSACTION DETAIL:
-Args order: java -jar mfs-tigopesa-curl.jar MFS_REFERENCE_ID TYPE MSISDN PIN URL
+Args order: java -jar mfs-tigopesa-curl.jar MFS_REFERENCE_ID TYPE MSISDN PIN EXTERNAL_REFERENCE_ID URL
 
 Example: java -jar mfs-tigopesa-curl.jar MFSTEST20220531-001 MTPGGetSODetails 2556400755569 9789 ExtRef8881239 https://tigotest.free.beeceptor.com/detail
