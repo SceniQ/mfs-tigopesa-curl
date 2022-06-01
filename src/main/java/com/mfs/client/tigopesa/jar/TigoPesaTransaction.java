@@ -58,6 +58,14 @@ public class TigoPesaTransaction {
 
         String response = mTInterfaceService.connectByUsingCURL(request,conRequest);
 
+        processResponse(response);
+    }
+
+    /**
+     * Processes the response coming from calling the partner
+     */
+    private static void processResponse(String response){
+
         System.out.println("Transaction detail Response: ");
         System.out.println(response);
     }
