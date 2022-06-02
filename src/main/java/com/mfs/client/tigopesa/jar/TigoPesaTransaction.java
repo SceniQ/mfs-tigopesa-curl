@@ -59,7 +59,6 @@ public class TigoPesaTransaction {
         LOGGER.info("==> Transaction Details Service - Connection Request : " + conRequest);
 
         String response = mTInterfaceService.connectByUsingCURL(request,conRequest);
-
         processResponse(response, mfsReferenceId);
     }
 
@@ -74,10 +73,12 @@ public class TigoPesaTransaction {
             resultCode = Integer.parseInt(response.substring(response.indexOf("<RESULTCODE>"),response.indexOf("</RESULTCODE>")).replace("<RESULTCODE>","").trim());
             if(0 == resultCode)
                 builder.append("01, ").append(mfsReferenceId).append(", SUCCESS");
-            else if(tigoPesaErrorCodes().contains(resultCode))
-                builder.append("100, ").append(mfsReferenceId).append(", FAIL");
             else if(-1 == resultCode | 100 == resultCode | 901 == resultCode)
                 builder.append("268, ").append(mfsReferenceId).append(", PENDING");
+            else if(100099 == resultCode | 100120 == resultCode)
+                builder.append("103, ").append(mfsReferenceId).append(", FAIL");
+            else if(tigoPesaErrorCodes().contains(resultCode))
+                builder.append("100, ").append(mfsReferenceId).append(", FAIL");
         }else{
             builder.append("268, ").append(mfsReferenceId).append(", PENDING");
         }
