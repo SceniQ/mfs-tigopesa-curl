@@ -93,9 +93,6 @@ public class TigoPesaTransaction {
      */
     private static List<Integer> tigoPesaErrorCodes() {
         List<Integer> codes = new ArrayList<Integer>();
-//        codes.add(-1);
-//        codes.add(100);
-//        codes.add(901);
         codes.add(100002);
         codes.add(100005);
         codes.add(100099);
