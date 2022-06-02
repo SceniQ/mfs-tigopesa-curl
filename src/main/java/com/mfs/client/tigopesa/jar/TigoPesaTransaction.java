@@ -72,18 +72,17 @@ public class TigoPesaTransaction {
         if(response != null && response.contains("<RESULTCODE>")){
             resultCode = Integer.parseInt(response.substring(response.indexOf("<RESULTCODE>"),response.indexOf("</RESULTCODE>")).replace("<RESULTCODE>","").trim());
             if(0 == resultCode)
-                builder.append("01, ").append(mfsReferenceId).append(", SUCCESS");
+                builder.append("01,").append(mfsReferenceId).append(",SUCCESS");
             else if(-1 == resultCode | 100 == resultCode | 901 == resultCode)
-                builder.append("268, ").append(mfsReferenceId).append(", PENDING");
+                builder.append("268,").append(mfsReferenceId).append(",PENDING");
             else if(100099 == resultCode | 100120 == resultCode)
-                builder.append("103, ").append(mfsReferenceId).append(", FAIL");
+                builder.append("103,").append(mfsReferenceId).append(",FAIL");
             else if(tigoPesaErrorCodes().contains(resultCode))
-                builder.append("100, ").append(mfsReferenceId).append(", FAIL");
+                builder.append("100,").append(mfsReferenceId).append(",FAIL");
         }else{
-            builder.append("268, ").append(mfsReferenceId).append(", PENDING");
+            builder.append("268, ").append(mfsReferenceId).append(",PENDING");
         }
 
-        System.out.println("Transaction detail Response: ");
         System.out.println(builder);
     }
 
