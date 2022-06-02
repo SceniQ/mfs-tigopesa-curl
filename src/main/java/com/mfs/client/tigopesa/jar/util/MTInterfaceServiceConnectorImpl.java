@@ -31,6 +31,7 @@ public class MTInterfaceServiceConnectorImpl {
 	private static final Logger LOGGER = Logger.getLogger(MTInterfaceServiceConnectorImpl.class);
 	private static final int CHECK_RESPONSE_CODE = 200;
 	private final Properties mtinterfaceconnProperties = new Properties();
+	private static final String CONNECTION_TIMEOUT = "60";
 
 	private static final String CURL_HEADER_NAME = "--header";
 
@@ -219,7 +220,7 @@ public class MTInterfaceServiceConnectorImpl {
 
 
 			ProcessBuilder pb = new ProcessBuilder("curl", "-X", MTInterfaceConRequest.getHttpmethodName(),
-					"--insecure", headersData, "--data", data, connectURL);
+					"--insecure", headersData,"--data", data,"--max-time",CONNECTION_TIMEOUT, connectURL);
 
 			LOGGER.info("==> Printing Process Builder: " + pb.command());
 

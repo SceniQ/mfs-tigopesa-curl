@@ -5,7 +5,9 @@ import com.mfs.client.tigopesa.jar.util.MTInterfaceConRequest;
 import com.mfs.client.tigopesa.jar.util.MTInterfaceServiceConnectorImpl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.apache.log4j.*;
 
@@ -58,15 +60,55 @@ public class TigoPesaTransaction {
 
         String response = mTInterfaceService.connectByUsingCURL(request,conRequest);
 
-        processResponse(response);
+        processResponse(response, mfsReferenceId);
     }
 
     /**
      * Processes the response coming from calling the partner
      */
-    private static void processResponse(String response){
+    private static void processResponse(String response,String mfsReferenceId){
+        StringBuilder builder = new StringBuilder();
+        int resultCode;
+
+        if(response != null && response.contains("<RESULTCODE>")){
+            resultCode = Integer.parseInt(response.substring(response.indexOf("<RESULTCODE>"),response.indexOf("</RESULTCODE>")).replace("<RESULTCODE>","").trim());
+            if(0 == resultCode)
+                builder.append("01, ").append(mfsReferenceId).append(", SUCCESS");
+            else if(tigoPesaErrorCodes().contains(resultCode))
+                builder.append("100, ").append(mfsReferenceId).append(", FAIL");
+            else if(-1 == resultCode | 100 == resultCode | 901 == resultCode)
+                builder.append("268, ").append(mfsReferenceId).append(", PENDING");
+        }else{
+            builder.append("268, ").append(mfsReferenceId).append(", PENDING");
+        }
 
         System.out.println("Transaction detail Response: ");
-        System.out.println(response);
+        System.out.println(builder);
+    }
+
+    /**
+     * TIGO PESA error codes
+     *
+     * @return list of transaction error codes
+     */
+    private static List<Integer> tigoPesaErrorCodes() {
+        List<Integer> codes = new ArrayList<Integer>();
+//        codes.add(-1);
+//        codes.add(100);
+//        codes.add(901);
+        codes.add(100002);
+        codes.add(100005);
+        codes.add(100099);
+        codes.add(100110);
+        codes.add(100116);
+        codes.add(100117);
+        codes.add(100119);
+        codes.add(100120);
+        codes.add(100124);
+        codes.add(100125);
+        codes.add(100126);
+        codes.add(100128);
+        codes.add(100141);
+       return codes;
     }
 }
